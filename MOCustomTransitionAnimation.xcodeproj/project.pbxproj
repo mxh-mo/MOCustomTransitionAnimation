@@ -17,6 +17,7 @@
 		FD3244C0293253CB0003D172 /* MOPopOrDismissAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD3244BF293253CB0003D172 /* MOPopOrDismissAnimator.swift */; };
 		FD3244C2293253DA0003D172 /* MOPushOrPresentAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD3244C1293253DA0003D172 /* MOPushOrPresentAnimator.swift */; };
 		FD3244C4293253EB0003D172 /* MOPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD3244C3293253EB0003D172 /* MOPresentationController.swift */; };
+		FD3244C62932548B0003D172 /* MOExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FD3244C52932548B0003D172 /* MOExtensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +33,7 @@
 		FD3244BF293253CB0003D172 /* MOPopOrDismissAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MOPopOrDismissAnimator.swift; sourceTree = "<group>"; };
 		FD3244C1293253DA0003D172 /* MOPushOrPresentAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MOPushOrPresentAnimator.swift; sourceTree = "<group>"; };
 		FD3244C3293253EB0003D172 /* MOPresentationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MOPresentationController.swift; sourceTree = "<group>"; };
+		FD3244C52932548B0003D172 /* MOExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MOExtensions.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,6 +73,7 @@
 				FD3244C1293253DA0003D172 /* MOPushOrPresentAnimator.swift */,
 				FD3244BF293253CB0003D172 /* MOPopOrDismissAnimator.swift */,
 				FD3244C3293253EB0003D172 /* MOPresentationController.swift */,
+				FD3244C52932548B0003D172 /* MOExtensions.swift */,
 				FD3244AF293251730003D172 /* Main.storyboard */,
 				FD3244B2293251740003D172 /* Assets.xcassets */,
 				FD3244B4293251740003D172 /* LaunchScreen.storyboard */,
@@ -153,6 +156,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FD3244C4293253EB0003D172 /* MOPresentationController.swift in Sources */,
+				FD3244C62932548B0003D172 /* MOExtensions.swift in Sources */,
 				FD3244AE293251730003D172 /* MOFirstViewController.swift in Sources */,
 				FD3244AA293251730003D172 /* AppDelegate.swift in Sources */,
 				FD3244BE293253470003D172 /* MOSecondViewController.swift in Sources */,
