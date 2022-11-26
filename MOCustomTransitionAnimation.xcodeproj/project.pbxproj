@@ -94,8 +94,10 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
+				CLASSPREFIX = MO;
 				LastSwiftUpdateCheck = 1400;
 				LastUpgradeCheck = 1400;
+				ORGANIZATIONNAME = mikimo;
 				TargetAttributes = {
 					FD3244A5293251730003D172 = {
 						CreatedOnToolsVersion = 14.0;
