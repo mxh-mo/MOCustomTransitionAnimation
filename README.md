@@ -1,6 +1,6 @@
 iOS_Custom Transition Animation 自定义转场动画
 
-@[TOC]
+[TOC]
 
 
 ----
@@ -310,6 +310,7 @@ Demo：[github address](https://github.com/mxh-mo/MOCustomTransitionAnimation)
 ----
 
 参考：
+
 [Customizing the Transition Animations](https://developer.apple.com/library/archive/featuredarticles/ViewControllerPGforiPhoneOS/CustomizingtheTransitionAnimations.html)
 
 [Creating Custom Presentations](https://developer.apple.com/library/archive/featuredarticles/ViewControllerPGforiPhoneOS/DefiningCustomPresentations.html#//apple_ref/doc/uid/TP40007457-CH25-SW1)
