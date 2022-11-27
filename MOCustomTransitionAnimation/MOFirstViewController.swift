@@ -22,7 +22,7 @@ class MOFirstViewController: UIViewController, UINavigationControllerDelegate {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
 
-        if self.isMovingFromParent { /// 回外部，移除代理
+        if self.isMovingFromParent { /// 回外部，移除代理(当外部不需要当前动画时)
             self.navigationController?.delegate = nil
             self.navigationController?.transitioningDelegate = nil
         }
@@ -68,17 +68,17 @@ extension MOFirstViewController {
     
     // MARK: - UINavigationControllerDelegate
     
-    /// 返回自定义转场动画
+    // 返回一个实现了转场动画协议的对象
     func navigationController(_ navigationController: UINavigationController,
                               animationControllerFor operation: UINavigationController.Operation,
                               from fromVC: UIViewController,
                               to toVC: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         moPrint(self, #line, "return animator")
         if operation == .push {
-            return MOPushOrPresentAnimator()
+            return MOPushOrPresentAnimator() // 实现push动画的对象
 
         } else {
-            return MOPopOrDismissAnimator()
+            return MOPopOrDismissAnimator() // 实现pop动画的对象
 
         }
     }
@@ -87,25 +87,29 @@ extension MOFirstViewController {
 // present 动效代理 (toVC.transitioningDelegate)
 extension MOFirstViewController: UIViewControllerTransitioningDelegate {
 
+    // 返回一个实现了 present 转场动画协议的对象
     func animationController(forPresented presented: UIViewController,
                              presenting: UIViewController,
                              source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         moPrint(self, #line, "return present animator")
         return MOPushOrPresentAnimator()
     }
+    
+    // 返回一个实现了 dismiss 转场动画协议的对象
     func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         moPrint(self, #line, "return dismissed animator")
         return MOPopOrDismissAnimator()
     }
 
-    // 也可以用一个vc来实现动效
+    // 返回实现 present-dismiss 动效的VC
 //    func presentationController(forPresented presented: UIViewController,
 //                                presenting: UIViewController?,
 //                                source: UIViewController) -> UIPresentationController? {
 //        moPrint(self, #line, "return presentationController")
-//        return MOPresentationController(presentedViewController: presented, presenting: presenting)
+//        return MOPresentationController(presentedViewController: presented, presenting: presenting) // 实现 present-dismiss 动画的对象
 //    }
 
 }
 
 // https://developer.apple.com/library/archive/featuredarticles/ViewControllerPGforiPhoneOS/CustomizingtheTransitionAnimations.html
+// https://developer.apple.com/library/archive/featuredarticles/ViewControllerPGforiPhoneOS/DefiningCustomPresentations.html#//apple_ref/doc/uid/TP40007457-CH25-SW1

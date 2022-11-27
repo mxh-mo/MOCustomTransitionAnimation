@@ -19,7 +19,7 @@ class MOPopOrDismissAnimator: NSObject, UIViewControllerAnimatedTransitioning {
     func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
         moPrint(self, #line, "pop or dismiss animateTransition")
         
-        // Get the set of relevant objects.
+        // 1. get data for animation (获取动画需要的数据)
         let containerView = transitionContext.containerView
         guard let fromVC = transitionContext.viewController(forKey: .from) else {
             moPrint(self, #line, "fromVC is nil")
@@ -33,17 +33,17 @@ class MOPopOrDismissAnimator: NSObject, UIViewControllerAnimatedTransitioning {
             moPrint(self, #line, "fromView is nil")
             return
         }
-        // push 时能拿到 toView
-//        guard let toView = transitionContext.view(forKey: .to)else {
-//            moPrint(self, #line, "toView is nil")
-//            return
-//        }
+        // pop 时能拿到 toView
+    //        guard let toView = transitionContext.view(forKey: .to)else {
+    //            moPrint(self, #line, "toView is nil")
+    //            return
+    //        }
         // dismiss 时拿不到 toView
         let toView: UIView = transitionContext.view(forKey: .to) ?? UIView(frame: .zero)
         
         moPrint(self, #line, "fromView: \(fromView), toView: \(toView)")
         
-        // Set up some variables for the animation.
+        // 2. calculate the value what you want (计算初始位置+最终位置)
         let containerFrame = containerView.frame;
         let toViewStartFrame = transitionContext.initialFrame(for: toVC)
         var fromViewFinalFrame = transitionContext.finalFrame(for: fromVC)
@@ -53,22 +53,27 @@ class MOPopOrDismissAnimator: NSObject, UIViewControllerAnimatedTransitioning {
                                     width: CGRectGetWidth(fromView.frame),
                                     height: CGRectGetHeight(fromView.frame))
         
+        // 3. Add do toView to the contenerView, and set the initial value (添加 toView 到 contianerView 上, 并设置初始值）
         containerView.addSubview(toView)
         toView.frame = toViewStartFrame;
         
-        /// 执行动画
+        // 4. execute animation 执行动画
         UIView.animate(withDuration: self.transitionDuration(using: transitionContext)) {
+            // 5.1 set final frame for animation view
             fromView.frame = fromViewFinalFrame
 
         } completion: { finish in
+            // 5.2 get animation result
             let success = !transitionContext.transitionWasCancelled
-            if success {    // After successful dismissal, remove the view.
+            // 5.2.1 remove the view after animation finish
+            if success {
                 fromView.removeFromSuperview()
             }
             transitionContext.completeTransition(success)
         }
     }
-    
+
+    /// 动画结束回调
     func animationEnded(_ transitionCompleted: Bool) {
         moPrint(self, #line, "animationEnded completed: \(transitionCompleted)")
     }

@@ -10,6 +10,7 @@ import UIKit
 
 class MOPresentationController: UIPresentationController {
     
+    // presentVC 在动画容器上的 frame
     override var frameOfPresentedViewInContainerView: CGRect {
         get {
             moPrint(self, #line, "frameOfPresentedViewInContainerView")
@@ -23,40 +24,43 @@ class MOPresentationController: UIPresentationController {
         }
     }
     
-    // MARK: - present 动画
+    // MARK: - 将要开始 present，设置初始值 和 动画回调
     override func presentationTransitionWillBegin() {
         super.presentationTransitionWillBegin()
         moPrint(self, #line, "presentationTransitionWillBegin")
         
+        // 1. get animation container view (获取动画容器视图)
         guard let containerView = containerView else { return }
         
+        // 2. set initial value for animation views and add to container view (设置动画视图的初始值， 并添加到都到容器上)
         self.moDimmingView.frame = containerView.bounds
         self.moDimmingView.alpha = 0.0
-        
         containerView.insertSubview(self.moDimmingView, at: 0)
-    
         
+        // 3. execute animation (执行动画)
+        // 这里尝试去拿一个时间点的回调，能拿到就在回调里执行显示动画；拿不到就直接设置显示
         guard let transitionCoordinator = self.presentedViewController.transitionCoordinator else {
             self.moDimmingView.alpha = 1.0
             return
         }
-
         transitionCoordinator.animateAlongsideTransition(in: self.presentedView) { context in
             self.moDimmingView.alpha = 1.0
         }
     }
-        
+    
+    // MARK: - present 动画结束
     override func presentationTransitionDidEnd(_ completed: Bool) {
         super.presentationTransitionDidEnd(completed)
         moPrint(self, #line, "presentationTransitionDidEnd")
         
+        // remove dark background view when transition fail
         if !completed {
             self.moDimmingView.removeFromSuperview()
         }
     }
     
     
-    // MARK: - dismiss 动画
+    // MARK: - 将要开始 dismiss，设置初始值 和 动画回调
     override func dismissalTransitionWillBegin() {
         super.dismissalTransitionWillBegin()
         moPrint(self, #line, "dismissalTransitionWillBegin")
@@ -65,12 +69,12 @@ class MOPresentationController: UIPresentationController {
             self.moDimmingView.alpha = 0.0
             return
         }
-
         transitionCoordinator.animateAlongsideTransition(in: self.presentedView) { context in
             self.moDimmingView.alpha = 0.0
         }
     }
-        
+
+    // MARK: - dismiss 动画结束
     override func dismissalTransitionDidEnd(_ completed: Bool) {
         super.dismissalTransitionDidEnd(completed)
         moPrint(self, #line, "dismissalTransitionDidEnd")
@@ -80,6 +84,7 @@ class MOPresentationController: UIPresentationController {
         }
     }
     
+    // 暗色背景
     lazy var moDimmingView: UIView = {
         let view = UIView(frame: .zero)
         view.backgroundColor = UIColor(white: 0.0, alpha: 0.4)
