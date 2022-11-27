@@ -87,6 +87,7 @@ extension MOFirstViewController {
 // present 动效代理 (toVC.transitioningDelegate)
 extension MOFirstViewController: UIViewControllerTransitioningDelegate {
 
+    // MARK: - 方法1
     // 返回一个实现了 present 转场动画协议的对象
     func animationController(forPresented presented: UIViewController,
                              presenting: UIViewController,
@@ -94,14 +95,15 @@ extension MOFirstViewController: UIViewControllerTransitioningDelegate {
         moPrint(self, #line, "return present animator")
         return MOPushOrPresentAnimator()
     }
-    
+
     // 返回一个实现了 dismiss 转场动画协议的对象
     func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
         moPrint(self, #line, "return dismissed animator")
         return MOPopOrDismissAnimator()
     }
 
-    // 返回实现 present-dismiss 动效的VC
+    // MARK: - 方法2
+//    // 返回实现 present-dismiss 动效的VC
 //    func presentationController(forPresented presented: UIViewController,
 //                                presenting: UIViewController?,
 //                                source: UIViewController) -> UIPresentationController? {
